@@ -23,3 +23,16 @@ conda activate medibot
 ```bash
 pip install -r requirements.txt
 ```
+
+### Index PDF documents
+
+Place searchable PDF files in `data/` and run:
+
+```bash
+python store_index.py
+```
+
+The script indexes all PDFs in `data/` into the Pinecone `medai` index. PDFs
+without extractable text are skipped, and stable chunk IDs make reruns update
+existing records instead of adding duplicates. The retrieval notebook connects
+to this same index using the configured sentence-transformer embeddings.

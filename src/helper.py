@@ -1,6 +1,6 @@
-from langchain.document_loaders import PyPDFLoader, DirectoryLoader
+from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from typing import List
 from langchain.schema import Document
 
@@ -21,11 +21,15 @@ def filter_to_minimal_docs(docs: List[Document]) -> List[Document]:
     """
     minimal_docs: List[Document] = []
     for doc in docs:
-        src = doc.metadata.get("source")
+        metadata = {
+            key: doc.metadata[key]
+            for key in ("source", "page")
+            if key in doc.metadata
+        }
         minimal_docs.append(
             Document(
                 page_content=doc.page_content,
-                metadata={"source": src}
+                metadata=metadata,
             )
         )
     return minimal_docs
@@ -49,4 +53,3 @@ def create_embeddings():
     return embeddings
 
 embeddings = create_embeddings()
-
