@@ -40,11 +40,11 @@ to this same index using the configured sentence-transformer embeddings.
 # Finally run the following command
 python app.py
 
-Techstack Used:
-Python
-LangChain
-Flask
-Groq
+Techstack Used,:
+Python,
+LangChain,
+Flask,
+Groq,
 Pinecone
 
 
